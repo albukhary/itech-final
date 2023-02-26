@@ -1,4 +1,4 @@
-name: Apply configuration
+name: Create-Edit-Delete Infrastructure
 
 on:
   # push:
