@@ -10,6 +10,7 @@ on:
       action:
         description: 'Terraform Action to Perform'
         type: choice
+        required: true
         options:
         - Terraform_apply
         - Terraform_destroy
