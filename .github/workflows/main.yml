@@ -1,9 +1,9 @@
 name: Apply configuration
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
   workflow_dispatch:
     inputs:
       instance_type:
