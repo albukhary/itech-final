@@ -215,7 +215,7 @@ jobs:
           -input=false \
           -no-color \
           tfplan
-  # If you selected to testroy the resources
+  # If you selected to destroy the resources
   tf_destroy_compute:
     name: "Terraform_destroy_compute"
     if: ${{ github.event.inputs.action == 'Terraform_destroy' }}
@@ -268,7 +268,7 @@ jobs:
       - name: Terraform Destroy
         id: destroy
         working-directory: ./us-east-1/vpc
-        run: terraform destroy -auto-approve -var-file=variables.tfvars
+        run: terraform destroy -auto-approve #-var-file=variables.tfvars
         env:
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
