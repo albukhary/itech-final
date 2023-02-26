@@ -62,7 +62,7 @@ jobs:
       
     - name: Create S3 bucket
       run: |
-        aws s3api create-bucket --bucket ${{ env.BACKEND_S3_BUCKET_NAME }} --region us-east-1 --create-bucket-configuration
+        aws s3api create-bucket --bucket ${{ env.BACKEND_S3_BUCKET_NAME }} --region us-east-1
 #        aws s3api put-bucket-versioning --bucket ${{ env.BACKEND_S3_BUCKET_NAME }} --versioning-configuration Status=Enabled
       if: steps.check-s3-bucket.outputs.exists == 'false'
 
