@@ -274,7 +274,7 @@ jobs:
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   destroy-backend:
     if: ${{ github.event.inputs.action == 'Terraform_destroy' }}
-    needs: [tf_destroy_compute]
+    needs: [tf_destroy_vpc]
     runs-on: ubuntu-latest
 
     steps:
