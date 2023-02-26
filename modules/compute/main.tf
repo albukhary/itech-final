@@ -41,6 +41,6 @@ resource "aws_instance" "app-server1" {
   tags = {
     Name = "app-server-1-${count.index}"
   }
-  count = var.instance_num
+  count     = var.instance_num
   user_data = file("${path.module}/user_data/user_data.tpl")
 }

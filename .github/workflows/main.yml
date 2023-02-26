@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       instance_type:
-        description: Type of the EC2 instance(s) to eb created
+        description: Type of the EC2 instance(s) to be created
         default: 't2.micro'
         type: choice
         required: true
@@ -131,25 +131,23 @@ jobs:
 
     - name: Plan Terraform
       id: plan
-      continue-on-error: true
       working-directory: ./us-east-1/vpc
       run: |
         terraform plan -input=false -no-color -out=tfplan \
-        -var="instance_type=${{ github.event.inputs.instance_type }}" \
-        -var="instance_num=${{ github.event.inputs.instance_num }}" \
+        -var "instance_type=${{ github.event.inputs.instance_type }}" \
+        -var "instance_num=${{ github.event.inputs.instance_num }}" \
         && terraform show -no-color tfplan          
 
     - name: Apply Terraform
       if: steps.plan.outcome == 'success'
       id: apply
-      continue-on-error: true
       working-directory: ./us-east-1/vpc
       run: |
         terraform apply -auto-approve \
           -input=false \
           -no-color \
-          -var="instance_type=${{ github.event.inputs.instance_type }}" \
-          -var="instance_num=${{ github.event.inputs.instance_num }}" \
+          -var "instance_type=${{ github.event.inputs.instance_type }}" \
+          -var "instance_num=${{ github.event.inputs.instance_num }}" \
           tfplan
   # Here we deal with compute module
   lint-compute:
@@ -197,23 +195,21 @@ jobs:
 
     - name: Plan Terraform
       id: plan
-      continue-on-error: true
       working-directory: ./us-east-1/compute
       run: |
         terraform plan -input=false -no-color -out=tfplan \
-        -var="instance_type=${{ github.event.inputs.instance_type }}" \
-        -var="instance_num=${{ github.event.inputs.instance_num }}" \
+        -var "instance_type=${{ github.event.inputs.instance_type }}" \
+        -var "instance_num=${{ github.event.inputs.instance_num }}" \
         && terraform show -no-color tfplan          
 
     - name: Apply Terraform
       if: steps.plan.outcome == 'success'
       id: apply
-      continue-on-error: true
       working-directory: ./us-east-1/compute
       run: |
         terraform apply -auto-approve \
           -input=false \
           -no-color \
-          -var="instance_type=${{ github.event.inputs.instance_type }}" \
-          -var="instance_num=${{ github.event.inputs.instance_num }}" \
+          -var "instance_type=${{ github.event.inputs.instance_type }}" \
+          -var "instance_num=${{ github.event.inputs.instance_num }}" \
           tfplan
