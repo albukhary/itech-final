@@ -127,7 +127,7 @@ jobs:
       if: steps.plan.outcome == 'success'
       id: apply
       continue-on-error: true
-      working-directory: ./terraform
+      working-directory: ./us-east-1/vpc
       run: |
         terraform apply \
           -input=false \
@@ -189,7 +189,7 @@ jobs:
       if: steps.plan.outcome == 'success'
       id: apply
       continue-on-error: true
-      working-directory: ./terraform
+      working-directory: ./us-east-1/compute
       run: |
         terraform apply \
           -input=false \
