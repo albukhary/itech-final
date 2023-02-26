@@ -77,7 +77,6 @@ jobs:
     - name: Create S3 bucket
       run: |
         aws s3api create-bucket --bucket ${{ env.BACKEND_S3_BUCKET_NAME }} --region us-east-1
-#        aws s3api put-bucket-versioning --bucket ${{ env.BACKEND_S3_BUCKET_NAME }} --versioning-configuration Status=Enabled
       if: steps.check-s3-bucket.outputs.exists == 'false'
 
     - name: Configure S3 bucket public access block
@@ -134,8 +133,6 @@ jobs:
       working-directory: ./us-east-1/vpc
       run: |
         terraform plan -input=false -no-color -out=tfplan \
-        -var "instance_type=${{ github.event.inputs.instance_type }}" \
-        -var "instance_num=${{ github.event.inputs.instance_num }}" \
         && terraform show -no-color tfplan          
 
     - name: Apply Terraform
@@ -146,8 +143,6 @@ jobs:
         terraform apply -auto-approve \
           -input=false \
           -no-color \
-          -var "instance_type=${{ github.event.inputs.instance_type }}" \
-          -var "instance_num=${{ github.event.inputs.instance_num }}" \
           tfplan
   # Here we deal with compute module
   lint-compute:
