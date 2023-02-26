@@ -205,6 +205,4 @@ jobs:
         terraform apply -auto-approve \
           -input=false \
           -no-color \
-          -var "instance_type=${{ github.event.inputs.instance_type }}" \
-          -var "instance_num=${{ github.event.inputs.instance_num }}" \
           tfplan
