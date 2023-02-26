@@ -1,13 +1,13 @@
-output "instance_public_dns" {
-  value = module.compute.instance_public_dns
+output "instance_public_dnss" {
+  value = module.compute.instance_public_dnss
 }
 
-output "instance_public_ip" {
-  value = module.compute.instance_public_ip
+output "instance_public_ips" {
+  value = module.compute.instance_public_ips
 }
 
-output "instance_id" {
-  value = module.compute.instance_id
+output "instance_ids" {
+  value = module.compute.instance_ids
 }
 
 output "sg_id" {
