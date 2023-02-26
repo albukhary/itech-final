@@ -4,6 +4,20 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      instance_type:
+        description: Type of the EC2 instance(s) to eb created
+        default: 't2.micro'
+        type: choice
+        required: true
+        options:
+          - "t1.micro"
+          - "t2.micro"
+      instance_num:
+        description: Number of instances
+        default: '1'
+        required: true
 
 env:
   BACKEND_DYNAMO_TABLE_NAME: itech-final-tfstate-lock
@@ -121,6 +135,8 @@ jobs:
       working-directory: ./us-east-1/vpc
       run: |
         terraform plan -input=false -no-color -out=tfplan \
+        -var="instance_type=${{ github.event.inputs.instance_type }}" \
+        -var="instance_num=${{ github.event.inputs.instance_num }}" \
         && terraform show -no-color tfplan          
 
     - name: Apply Terraform
@@ -129,9 +145,11 @@ jobs:
       continue-on-error: true
       working-directory: ./us-east-1/vpc
       run: |
-        terraform apply \
+        terraform apply -auto-approve \
           -input=false \
           -no-color \
+          -var="instance_type=${{ github.event.inputs.instance_type }}" \
+          -var="instance_num=${{ github.event.inputs.instance_num }}" \
           tfplan
   # Here we deal with compute module
   lint-compute:
@@ -183,6 +201,8 @@ jobs:
       working-directory: ./us-east-1/compute
       run: |
         terraform plan -input=false -no-color -out=tfplan \
+        -var="instance_type=${{ github.event.inputs.instance_type }}" \
+        -var="instance_num=${{ github.event.inputs.instance_num }}" \
         && terraform show -no-color tfplan          
 
     - name: Apply Terraform
@@ -191,7 +211,9 @@ jobs:
       continue-on-error: true
       working-directory: ./us-east-1/compute
       run: |
-        terraform apply \
+        terraform apply -auto-approve \
           -input=false \
           -no-color \
+          -var="instance_type=${{ github.event.inputs.instance_type }}" \
+          -var="instance_num=${{ github.event.inputs.instance_num }}" \
           tfplan

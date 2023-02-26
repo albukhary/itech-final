@@ -33,13 +33,14 @@ data "aws_ami" "amazon_ami" {
   owners      = ["amazon"]
 }
 resource "aws_instance" "app-server1" {
-  instance_type               = "t2.micro"
+  instance_type               = var.instance_type
   ami                         = data.aws_ami.amazon_ami.id
   vpc_security_group_ids      = [aws_security_group.http-sg.id]
   subnet_id                   = var.subnet_id
   associate_public_ip_address = true
   tags = {
-    Name = "app-server-1"
+    Name = "app-server-1-${count.index}"
   }
+  count = var.instance_num
   user_data = file("${path.module}/user_data/user_data.tpl")
 }
