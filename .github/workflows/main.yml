@@ -240,7 +240,7 @@ jobs:
       - name: Terraform Destroy
         id: destroy
         working-directory: ./us-east-1/compute
-        run: terraform destroy -auto-approve -var-file=variables.tfvars
+        run: terraform destroy -auto-approve #-var-file=variables.tfvars
         env:
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
